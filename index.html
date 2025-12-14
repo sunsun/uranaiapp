@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>おみくじ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap');
+
+:root {
+    --pale-pink-light: #FCEFF2;
+    --pale-pink-main: #F4C2C2;
+    --pale-pink-dark: #E899A1;
+    --accent-color: #C672A4;
+    --text-color: #555;
+}
+
+body {
+    background-color: var(--pale-pink-light);
+    font-family: 'Shippori Mincho', serif;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.omikuji-result {
+    background: white;
+    font-size: 1.5em;
+    font-weight: 700;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    border: 3px solid var(--pale-pink-main);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    min-width: 200px;
+    text-align: center;
+    transition: all 0.5s ease-out;
+}
+
+.大吉 {
+    background-color: #FFF0F5;
+    border-color: #FFC0CB;
+    color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(255, 192, 203, 0.8);
+    font-size: 2.2em;
+}
+.中吉 {
+    background-color: #FFFAFA;
+    border-color: #F8BBD0;
+}
+.凶 {
+    background-color: #F9F9F9;
+    border-color: #CCC;
+    color: #888;
+}
+
+.omikuji-button {
+    background-color: var(--pale-pink-dark);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.omikuji-button:hover {
+    background-color: var(--accent-color);
+    box-shadow: 0 5px 20px rgba(198, 114, 164, 0.3);
+}
+
+.omikuji-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.omikuji-result.reveal-animation {
+    animation: fadeInScale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+</style>
+</head>
+<body>
+
+<div id="result" class="omikuji-result">おみくじを引いてね</div>
+<button onclick="drawOmikuji()" class="omikuji-button">おみくじを引く</button>
+
+<script>
+function drawOmikuji(){
+  const list = ['大吉','中吉','小吉','末吉','凶'];
+  const pick = list[Math.floor(Math.random()*list.length)];
+  const box = document.getElementById('result');
+
+  box.textContent = pick;
+  box.className = 'omikuji-result ' + pick;
+
+  box.classList.remove('reveal-animation');
+  void box.offsetWidth;
+  box.classList.add('reveal-animation');
+}
+</script>
+
+</body>
+</html>
